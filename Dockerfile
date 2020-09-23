@@ -119,7 +119,10 @@ RUN ln -s /usr/lib/nginx/modules /etc/nginx/modules &&  \
 
 RUN cd /tmp/ && rm -ri *
   
+  
 COPY nginx.conf /etc/nginx/nginx.conf	
+
+COPY mime.types /etc/nginx/mime.types
 
 WORKDIR /etc/nginx
 
