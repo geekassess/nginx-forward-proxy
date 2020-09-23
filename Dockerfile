@@ -1,33 +1,37 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends apt-utils && \
+    rm -rf /var/lib/apt/lists/* 
 
 RUN apt-get update; \
     apt-get install -y gnupg2; \
-	apt-get install -y wget; \
-	apt-get install -y curl; \
+	  apt-get install -y wget; \
+	  apt-get install -y curl; \
     apt-get install -y git; \
     apt-get install -y libfontconfig1; \
     apt-get install -y libpcre3; \ 
     apt-get install -y libpcre3-dev; \
     apt-get install -y dpkg-dev; \
     apt-get install -y libpng-dev; \
-	apt-get install -y libxslt-dev; \
-	apt-get install -y perl; \
-	apt-get install -y libperl-dev; \
+	  apt-get install -y libxslt-dev; \
+  	apt-get install -y perl; \
+  	apt-get install -y libperl-dev; \
     apt-get install -y libgd3; \
-	apt-get install -y libgd-tools; \
-	apt-get install -y libgd3-dbgsym; \
-	apt-get install -y libgd-dev; \
-	apt-get install -y libgeoip1; \
-	apt-get install -y libgeoip-dev; \
+	  apt-get install -y libgd-tools; \
+  	apt-get install -y libgd3-dbgsym; \
+  	apt-get install -y libgd-dev; \
+  	apt-get install -y libgeoip1; \
+  	apt-get install -y libgeoip-dev; \
     apt-get install -y geoip-bin; \
-	apt-get install -y libxml2; \
-	apt-get install -y libxml2-dev; \
-	apt-get install -y libxslt1.1; \
+	  apt-get install -y libxml2; \
+  	apt-get install -y libxml2-dev; \
+  	apt-get install -y libxslt1.1; \
     apt-get install -y libxslt1-dev; \
-	apt-get install -y build-essential; \
-    apt-get autoclean && apt-get autoremove;
+	  apt-get install -y build-essential; \
+    apt-get autoclean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/* ;
    
 	
 RUN mkdir -p /tmp/nginx	
@@ -108,14 +112,15 @@ RUN  cd /tmp/nginx && ./configure --prefix=/etc/nginx \
 			  make && \
 			  make install;
 	
-RUN ln -s /usr/lib/nginx/modules /etc/nginx/modules &&  \
-	 mkdir -p /etc/nginx/conf.d /etc/nginx/snippets /etc/nginx/sites-available /etc/nginx/sites-enabled && \
-	 adduser --system --home /nonexistent --shell /bin/false --no-create-home --disabled-login --disabled-password --gecos "nginx user" --group nginx && \
-         mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/proxy_temp /var/cache/nginx/scgi_temp /var/cache/nginx/uwsgi_temp && \
-         chmod 700 /var/cache/nginx/* && \
-         chown -R nginx:nginx /var/cache/nginx/* && \
-         mkdir -p /var/log/nginx/ && chmod 640 /var/log/nginx/ && \
-         chown -R nginx:nginx /var/log/nginx/
+RUN  ln -s /usr/lib/nginx/modules /etc/nginx/modules &&  \
+	   mkdir -p /etc/nginx/conf.d /etc/nginx/snippets /etc/nginx/sites-available /etc/nginx/sites-enabled && \
+	   adduser --system --home /nonexistent --shell /bin/false --no-create-home --disabled-login --disabled-password --gecos "nginx user" --group nginx && \
+     mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/proxy_temp /var/cache/nginx/scgi_temp /var/cache/nginx/uwsgi_temp && \
+     chmod 700 /var/cache/nginx/* && \
+     chown -R nginx:nginx /var/cache/nginx/* && \
+     mkdir -p /var/log/nginx/ && \
+     chmod 640 /var/log/nginx/ && \
+     hown -R nginx:nginx /var/log/nginx/
 
 RUN cd /tmp/ && rm -ri *
   
