@@ -34,7 +34,7 @@ RUN apt-get update; \
     rm -rf /var/lib/apt/lists/* ;
    
 	
-RUN mkdir -p /tmp/nginx	
+RUN  mkdir -p /tmp/nginx	
 
 WORKDIR /tmp/nginx
 
@@ -43,12 +43,12 @@ ENV NGINX_VERSION 1.18.0
 RUN  wget https://ftp.pcre.org/pub/pcre/pcre-8.44.tar.gz && tar xzvf pcre-8.44.tar.gz && \
      wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzvf zlib-1.2.11.tar.gz && \
      wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz && tar xzvf openssl-1.1.1g.tar.gz; \
-	 rm -rf *.tar.gz
+     rm -rf *.tar.gz
 
-RUN wget "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
-    tar -xzvf nginx.tar.gz -C /tmp/nginx --strip-components=1 && \
-    git clone https://github.com/chobits/ngx_http_proxy_connect_module  /tmp/nginx-modules/ngx_http_proxy_connect_module && \
-	patch -p1 < /tmp/nginx-modules/ngx_http_proxy_connect_module/patch/proxy_connect_rewrite_1018.patch;
+RUN  wget "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
+     tar -xzvf nginx.tar.gz -C /tmp/nginx --strip-components=1 && \
+     git clone https://github.com/chobits/ngx_http_proxy_connect_module  /tmp/nginx-modules/ngx_http_proxy_connect_module && \
+     patch -p1 < /tmp/nginx-modules/ngx_http_proxy_connect_module/patch/proxy_connect_rewrite_1018.patch;
 	
 	
 RUN  cd /tmp/nginx && ./configure --prefix=/etc/nginx \ 
@@ -120,14 +120,14 @@ RUN  ln -s /usr/lib/nginx/modules /etc/nginx/modules &&  \
      chown -R nginx:nginx /var/cache/nginx/* && \
      mkdir -p /var/log/nginx/ && \
      chmod 640 /var/log/nginx/ && \
-     hown -R nginx:nginx /var/log/nginx/
+     chown -R nginx:nginx /var/log/nginx/;
 
-RUN cd /tmp/ && rm -ri *
+RUN  cd /tmp/ && rm -ri *
   
   
-COPY nginx.conf /etc/nginx/nginx.conf	
+COPY  nginx.conf /etc/nginx/nginx.conf	
 
-COPY mime.types /etc/nginx/mime.types
+COPY  mime.types /etc/nginx/mime.types
 
 WORKDIR /etc/nginx
 
