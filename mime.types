@@ -231,4 +231,10 @@ types {
     text/vnd.wap.wml                      wml;
     text/vtt                              vtt;
     text/x-component                      htc;
+	
+	
+	font/ttf                               ttf;
+    font/opentype                          otf;
+    application/font-woff                  woff;
+    application/vnd.ms-fontobject          eot;
 }
